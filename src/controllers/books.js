@@ -1,10 +1,10 @@
-const User = require('../models/user');
+const Book = require('../models/book');
 
 // Получим всех пользователей из БД
-const getUsers = (req, res) => {
-  User.find({})
-    .then((user) => {
-      res.status(200).send(user);
+const getBooks = (req, res) => {
+  Book.find({})
+    .then((book) => {
+      res.status(200).send(book);
     })
     .catch((e) => {
       res.status(500).send(e.message);
@@ -12,11 +12,11 @@ const getUsers = (req, res) => {
 };
 
 // Получим пользователя по ID
-const getUser = (req, res) => {
-  const { user_id } = req.params;
-  User.findById(user_id)
-    .then((user) => {
-      res.status(200).send(user);
+const getBook = (req, res) => {
+  const { book_id } = req.params;
+  Book.findById(book_id)
+    .then((book) => {
+      res.status(200).send(book);
     })
     .catch((e) => {
       res.status(500).send(e.message);
@@ -24,11 +24,11 @@ const getUser = (req, res) => {
 };
 
 // Создаем пользователя
-const createUser = (req, res) => {
+const createBook = (req, res) => {
   const data = req.body;
-  User.create(data)
-    .then((user) => {
-      res.status(201).send(user);
+  Book.create(data)
+    .then((book) => {
+      res.status(201).send(book);
     })
     .catch((e) => {
       res.status(500).send(e.message);
@@ -36,12 +36,12 @@ const createUser = (req, res) => {
 };
 
 // Обновляем пользователя
-const updateUser = (req, res) => {
-  const { user_id } = req.params;
+const updateBook = (req, res) => {
+  const { book_id } = req.params;
   const data = req.body;
-  User.findByIdAndUpdate(user_id, data, { new: true, runValidators: true })
-    .then((user) => {
-      res.status(200).send(user);
+  Book.findByIdAndUpdate(book_id, data, { new: true, runValidators: true })
+    .then((book) => {
+      res.status(200).send(book);
     })
     .catch((e) => {
       res.status(500).send(e.message);
@@ -49,10 +49,10 @@ const updateUser = (req, res) => {
 };
 
 // Удаляем пользователя
-const deleteUser = (req, res) => {
-  const { user_id } = req.params;
-  User.findByIdAndDelete(user_id)
-    .then((user) => {
+const deleteBook = (req, res) => {
+  const { book_id } = req.params;
+  Book.findByIdAndDelete(book_id)
+    .then((book) => {
       res.status(200).send('Done');
     })
     .catch((e) => {
@@ -61,9 +61,9 @@ const deleteUser = (req, res) => {
 };
 
 module.exports = {
-  getUsers,
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
+  getBooks,
+  getBook,
+  createBook,
+  updateBook,
+  deleteBook,
 };

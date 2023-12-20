@@ -2,6 +2,28 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('./middlewares/cors');
 const mongoose = require('mongoose');
+const {
+  getUsers,
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
+} = require('./controllers/users');
+const {
+  getBooks,
+  getBook,
+  createBook,
+  updateBook,
+  deleteBook,
+} = require('./controllers/books');
+
+dotenv.config();
+
+const {
+  PORT = 3007,
+  API_URL = 'http://localhost',
+  MONGO_URL = 'mongodb://localhost:27017/backend',
+} = process.env;
 
 mongoose
   .connect(MONGO_URL)
@@ -9,8 +31,6 @@ mongoose
   .catch((error) => console.log('[MONGO_CONNECTION]', error));
 
 const bodyParser = require('body-parser');
-
-dotenv.config();
 
 const app = express();
 
