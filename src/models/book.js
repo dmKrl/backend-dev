@@ -1,17 +1,12 @@
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
-  name: {
+  bookName: {
     type: String,
     required: true,
     minlength: 2,
   },
-  lastName: {
-    type: String,
-    required: true,
-    minlength: 2,
-  },
-  username: {
+  authorName: {
     type: String,
     required: true,
     minlength: 2,
