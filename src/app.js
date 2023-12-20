@@ -1,45 +1,24 @@
-const http = require('http');
-const getUsers = require('./modules/users');
+const express = require('express');
+const dotenv = require('dotenv');
+const cors = require('./middlewares/cors');
+const mongoose = require('mongoose');
 
-const server = http.createServer((request, response) => {
-  const url = new URL(request.url, 'http://127.0.0.1');
-  if (request.url === '/users') {
-    response.status = 200;
-    response.statusMessage = 'OK';
-    response.header = 'Content-Type: application/json';
-    response.write(getUsers());
-    response.end();
-    return;
-  }
-  if (url.searchParams.get('hello') === '') {
-    response.status = 400;
-    response.statusMessage = 'OK';
-    response.header = 'Content-Type: text/html';
-    response.write(`Enter a name`);
-    response.end();
-    return;
-  }
-  if (url.searchParams.get('hello') !== null) {
-    response.status = 200;
-    response.statusMessage = 'OK';
-    response.header = 'Content-Type: text/html';
-    response.write(`Hello ${url.searchParams.get('hello')}.`);
-    response.end();
-    return;
-  }
-  if (!url.searchParams.has('hello') && request.url !== '/') {
-    response.status = 500;
-    response.end();
-    return;
-  }
-  response.status = 200;
-  response.statusMessage = 'OK';
-  response.header = 'Content-Type: text/plain';
-  response.write('Hello, world!');
-  response.end();
+mongoose
+  .connect(MONGO_URL)
+  .then(() => console.log('Connected to Mongo!'))
+  .catch((error) => console.log('[MONGO_CONNECTION]', error));
+
+const bodyParser = require('body-parser');
+
+dotenv.config();
+
+const app = express();
+
+app.get('/', (request, response) => {
+  response.status(200);
+  response.send('');
 });
 
-const port = process.env.PORT || 3003;
-server.listen(port, () => {
-  console.log(`Сервера запущен по адресу http://127.0.0.1 с портом ${port}`);
+app.listen(PORT, () => {
+  console.log(`Ссылка на сервер ${API_URL}:${PORT}`);
 });
