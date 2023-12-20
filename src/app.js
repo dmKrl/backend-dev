@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('./middlewares/cors');
+const routes = require('./routes');
 const mongoose = require('mongoose');
 const {
   getUsers,
@@ -34,11 +35,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-app.get('/', (request, response) => {
-  response.status(200);
-  response.send('');
-});
-
+app.use('/', routes);
 app.listen(PORT, () => {
   console.log(`Ссылка на сервер ${API_URL}:${PORT}`);
 });
