@@ -25,8 +25,7 @@ const getBook = (req, res) => {
 
 // Создаем пользователя
 const createBook = (req, res) => {
-  const data = req.body;
-  Book.create(data)
+  Book.create({ ...req.body })
     .then((book) => {
       res.status(201).send(book);
     })
