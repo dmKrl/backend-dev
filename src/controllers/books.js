@@ -16,7 +16,8 @@ const getBook = (req, res) => {
   const { book_id } = req.params;
   Book.findById(book_id)
     .then((book) => {
-      res.status(200).send(book);
+      if (!book) res.status(404).send('book not found');
+      else res.status(200).send(book);
     })
     .catch((e) => {
       res.status(500).send(e.message);
@@ -38,8 +39,9 @@ const createBook = (req, res) => {
 const deleteBook = (req, res) => {
   const { book_id } = req.params;
   Book.findByIdAndDelete(book_id)
-    .then((book) => {
-      res.status(200).send('Done');
+    .then((user) => {
+      if (!user) res.status(404).send('cannot delete');
+      else res.status(200).send('success');
     })
     .catch((e) => {
       res.status(500).send(e.message);

@@ -16,7 +16,8 @@ const getUser = (req, res) => {
   const { user_id } = req.params;
   User.findById(user_id)
     .then((user) => {
-      res.status(200).send(user);
+      if (!user) res.status(404).send('user not found');
+      else res.status(200).send(user);
     })
     .catch((e) => {
       res.status(500).send(e.message);
@@ -52,7 +53,8 @@ const deleteUser = (req, res) => {
   const { user_id } = req.params;
   User.findByIdAndDelete(user_id)
     .then((user) => {
-      res.status(200).send('Done');
+      if (!user) res.status(404).send('cannot delete');
+      else res.status(200).send('success');
     })
     .catch((e) => {
       res.status(500).send(e.message);
