@@ -34,19 +34,6 @@ const createBook = (req, res) => {
     });
 };
 
-// Обновляем пользователя
-const updateBook = (req, res) => {
-  const { book_id } = req.params;
-  const data = req.body;
-  Book.findByIdAndUpdate(book_id, data, { new: true, runValidators: true })
-    .then((book) => {
-      res.status(200).send(book);
-    })
-    .catch((e) => {
-      res.status(500).send(e.message);
-    });
-};
-
 // Удаляем пользователя
 const deleteBook = (req, res) => {
   const { book_id } = req.params;
@@ -63,6 +50,5 @@ module.exports = {
   getBooks,
   getBook,
   createBook,
-  updateBook,
   deleteBook,
 };

@@ -5,8 +5,11 @@ const {
   updateUser,
   deleteUser,
 } = require('../controllers/users');
+const loggerTwo = require('../middlewares/loggerTwo');
 
 const router = require('express').Router();
+
+router.use(loggerTwo);
 
 router.get('/users', getUsers);
 router.get('/users/:user_id', getUser);

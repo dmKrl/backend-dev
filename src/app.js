@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const userRouter = require('./routes/users');
+const loggerOne = require('./middlewares/loggerOne');
 const bookRouter = require('./routes/books');
 
 dotenv.config();
@@ -28,6 +29,8 @@ mongoose
 
 app.use(cors());
 app.use(bodyParser.json());
+
+app.use(loggerOne);
 
 app.get('/', helloWorld);
 app.use('/', userRouter);
